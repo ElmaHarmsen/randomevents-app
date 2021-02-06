@@ -1,0 +1,43 @@
+//Global breakpoints and formula
+$breakpoints: (
+  "sm": 0, //Phone
+  "lg": 1280px, //Laptop
+);
+
+@mixin screen-is($breakpoint) {
+  @media (min-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+//Global body
+body {
+  margin: .8rem;
+
+  @include screen-is(lg) {
+    margin: 1.6rem;
+  }
+}
+
+//Global text-tags
+small, h1, h2 {
+  font-family: "source";
+}
+
+h1 {
+  margin: 0rem;
+  font-size: 24px;
+  font-weight: 600;
+
+  @include screen-is(lg) {
+    font-size: 24px;
+  }
+}
+
+small {
+  font-size: 10px;
+}
+
+a {
+  text-decoration: none;
+}
