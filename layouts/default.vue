@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="layout__header">
-      <h1>Random <img class="header__logo" src="~/assets/images/d10.svg" /> Events</h1>
+      <MainNavigation />
+      <img class="header__logo" src="~/assets/images/d10.svg" />
     </div>
     <Nuxt />
     <div class="layout__footer">
@@ -9,6 +10,17 @@
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue'
+import MainNavigation from '~/components/MainNavigation.vue'
+
+export default Vue.extend({
+  components: {
+    MainNavigation
+  }
+})
+</script>
 
 <style lang="scss">
 div {

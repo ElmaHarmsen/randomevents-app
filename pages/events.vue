@@ -1,15 +1,15 @@
 <template>
   <div class="view__container">
-    <div class="global__button">
-      <h2>Roll the Dice <br> of Randomness</h2>
-    </div>
+    <h1>Future Events</h1>
+    <h1>Past Events</h1>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-
-export default Vue.extend({})
+export default Vue.extend({
+  
+})
 </script>
 
 <style lang="scss">

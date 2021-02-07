@@ -19,6 +19,26 @@ body {
   }
 }
 
+//Global reusable styles
+.view__container {
+  min-height: calc(100vh - (2 * 2.5rem) - (2 * 0.8rem) - 10px - 24px);
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+.global__button {
+  border: 2px #ff0000;
+  border-style: dashed;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  color: #ff0000;
+  cursor: pointer;
+}
+.global__button:hover {
+  border-style: solid;
+}
+
 //Global text-tags
 small, h1, h2 {
   font-family: "source";
