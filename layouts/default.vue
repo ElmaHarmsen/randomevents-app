@@ -2,7 +2,7 @@
   <div>
     <div class="layout__header">
       <MainNavigation />
-      <img class="header__logo" src="~/assets/images/d10.svg" />
+      <!-- <img class="header__logo" src="~/assets/images/d10.svg" /> -->
     </div>
     <Nuxt />
     <div class="layout__footer">

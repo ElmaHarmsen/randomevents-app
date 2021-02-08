@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Menu button + content phone -->
-    <div class="navigation__menu" @click="toggleNavigation">
+    <div class="navigation__menu" @click="toggleNavigation" v-bind:class="{open: navigationOpened}">
       <span></span>
       <span></span>
       <span></span>
@@ -12,9 +12,12 @@
         <NuxtLink to="/events"><h1>Random Events</h1></NuxtLink>
       </div>
       <div class="content__newsletter">
-        <input type="email" placeholder="your@email.here" />
-        <div class="global__button">
-          <h2>Submit</h2>
+        <h1>Monthly newsletter</h1>
+        <div class="newsletter__signup">
+          <input type="email" placeholder="your@email.here" />
+          <div class="global__button">
+            <h2>Submit</h2>
+          </div>        
         </div>
       </div>
     </div>
@@ -48,8 +51,26 @@ export default Vue.extend({
   position: absolute;
   z-index: 2;
 
-  &:hover > span {
-    height: 2px;
+  span {
+    transition: all .2s ease-in-out;
+  }
+
+  // &:hover > span {
+  //   height: 2px;
+  // }
+
+  &.open  {
+    span:first-of-type {
+      transform: rotate(45deg);
+      transform-origin: top left;
+    }
+    span:nth-of-type(2) {
+      opacity: 0;
+    }
+    span:last-of-type {
+      transform: rotate(-45deg);
+      transform-origin: bottom left;
+    }
   }
 
   span {
@@ -70,22 +91,25 @@ export default Vue.extend({
   z-index: 1;
 
   .content__links h1 {
-    margin: 15px 0px;
+    margin: 20px 0px;
   }
 
   .content__newsletter {
     width: 100%;
     position: absolute;
-    bottom: .8rem;
-    display: grid;
-    grid-template-columns: 70% 1fr;
-    gap: .8rem;
+    bottom: 2.5rem;
 
-    input {
-      height: 32px;
-      border: 2px solid #000;
-      padding: 0 .5rem;
-      font-family: "source";
+    .newsletter__signup {
+      display: grid;
+      grid-template-columns: 70% 1fr;
+      gap: .8rem;
+      margin-top: 10px;
+
+      input {
+        border: 2px solid #000;
+        padding: .4rem .5rem;
+        font-family: "source";
+      }
     }
   }
 }
