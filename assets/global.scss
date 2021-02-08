@@ -10,9 +10,12 @@ $breakpoints: (
   }
 }
 
+//Global varables
+$space: .8rem;
+
 //Global body
 body {
-  margin: .8rem;
+  margin: $space;
 
   @include screen-is(lg) {
     margin: 1.6rem;
@@ -39,7 +42,7 @@ body {
 }
 
 //Global text-tags
-small, h1, h2 {
+small, h1, h2, h3 {
   font-family: "source";
 }
 
@@ -56,6 +59,11 @@ h1 {
 h2 {
   margin: 0;
   font-size: 18px;
+}
+
+h3 {
+  margin: 0;
+  font-size: 14px;
 }
 
 small {
