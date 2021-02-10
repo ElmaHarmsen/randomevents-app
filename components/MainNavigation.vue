@@ -85,7 +85,7 @@ export default Vue.extend({
   height: calc(100vh - .8rem);
   width: calc(100vw - 1.6rem);
   background-color: #fff;
-  position: absolute;
+  position: fixed;
   z-index: 1;
 
   .content__links h1 {

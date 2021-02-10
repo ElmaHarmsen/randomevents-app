@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -44,5 +46,15 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  generate: {
+    routes() {
+      return axios.get(`${process.env.NUXT_ENV_BASE_URL}/events`).then(res => {
+        return res.data.map(event => {
+          return '/events/' + event._id
+        });
+      });
+    }
   }
 }
