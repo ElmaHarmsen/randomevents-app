@@ -52,12 +52,17 @@ export default Vue.extend({
   z-index: 2;
 
   span {
+    display: block;
+    background-color: #000;
+    width: 2rem;
+    height: 2px;
+    border-radius: 9px;
     transition: all .2s ease-in-out;
   }
 
-  // &:hover > span {
-  //   height: 2px;
-  // }
+  &:hover > span {
+    background-color: #ff0000;
+  }
 
   &.open  {
     span:first-of-type {
@@ -72,13 +77,6 @@ export default Vue.extend({
       transform-origin: bottom left;
     }
   }
-
-  span {
-    display: block;
-    background-color: #ff0000;
-    width: 2rem;
-    height: 1px;
-  }
 }
 .navigation__content {
   display: flex;
@@ -92,6 +90,7 @@ export default Vue.extend({
 
   .content__links h1 {
     margin: 20px 0px;
+    color: #000;
   }
 
   .content__newsletter {

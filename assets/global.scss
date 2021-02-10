@@ -28,6 +28,11 @@ body {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+
+  .events__header {
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
 }
 .global__button {
   border: 2px #ff0000;
@@ -72,4 +77,11 @@ small {
 
 a {
   text-decoration: none;
+  color: inherit;
+}
+
+i {
+  font-style: italic;
+  font-size: 14px;
+  font-weight: 300;
 }
