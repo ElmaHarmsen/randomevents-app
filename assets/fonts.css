@@ -2,3 +2,8 @@
   font-family: "source";
   src: url("./SourceCodePro-Medium.ttf");
 }
+
+@font-face {
+  font-family: "nunito";
+  src: url("./Nunito-Regular.ttf");
+}

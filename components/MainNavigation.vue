@@ -1,5 +1,6 @@
 <template>
   <div>
+    <span class="rainbow"></span>
     <!-- Menu button + content phone -->
     <div class="navigation__menu" @click="toggleNavigation" v-bind:class="{open: navigationOpened}">
       <span></span>
@@ -20,6 +21,10 @@
           </div>        
         </div>
       </div>
+    </div>
+    <div class="navigation__content-lg">
+      <NuxtLink to="/"><h1>Home</h1></NuxtLink>
+      <NuxtLink to="/events"><h1>Random Events</h1></NuxtLink>
     </div>
   </div>
 </template>
@@ -42,14 +47,31 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+@import '@/assets/global.scss';
+
+.rainbow {
+  display: block;
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgb(255,69,0);
+  background: linear-gradient(90deg, rgba(255,69,0,1) 0%, rgba(255,158,0,1) 100%); 
+}
 .navigation__menu {
   width: 2rem;
   height: 1.5rem;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-  position: absolute;
+  position: fixed;
   z-index: 2;
+
+  @include screen-is(lg) {
+    display: none;
+  }
 
   span {
     display: block;
@@ -61,13 +83,14 @@ export default Vue.extend({
   }
 
   &:hover > span {
-    background-color: #ff0000;
+    background-color: #ff4500;
   }
 
   &.open  {
     span:first-of-type {
       transform: rotate(45deg);
       transform-origin: top left;
+      background-color: #ff4500;
     }
     span:nth-of-type(2) {
       opacity: 0;
@@ -75,6 +98,7 @@ export default Vue.extend({
     span:last-of-type {
       transform: rotate(-45deg);
       transform-origin: bottom left;
+      background-color: #ff4500;
     }
   }
 }
@@ -82,33 +106,73 @@ export default Vue.extend({
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  height: calc(100vh - .8rem);
-  width: calc(100vw - 1.6rem);
-  background-color: #fff;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #080808;
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: 1;
+
+  @include screen-is(lg) {
+    display: none;
+  }
 
   .content__links h1 {
     margin: 20px 0px;
-    color: #000;
+    color: #fff;
+    text-transform: uppercase;
   }
 
   .content__newsletter {
-    width: 100%;
+    width: calc(100% - 2.4rem);
     position: absolute;
     bottom: 2.5rem;
+    left: $space;
+    text-transform: uppercase;
+    color: #fff;
 
     .newsletter__signup {
+      width: 100%;
       display: grid;
-      grid-template-columns: 70% 1fr;
-      gap: .8rem;
+      grid-template-columns: 67% 1fr;
+      gap: 10px;
       margin-top: 10px;
 
       input {
-        border: 2px solid #000;
-        padding: .4rem .5rem;
+        border: 2px solid #fff;
+        background-color: #080808;
+        padding: .5rem .7rem;
         font-family: "source";
+        color: #fff;
       }
+      input::placeholder {
+        color: #e0e0e0;
+      }
+    }
+  }
+}
+
+.navigation__content-lg {
+  display: none; 
+
+  @include screen-is(lg) {
+    background-color: #080808;
+    color: #fff;
+    position: fixed;
+    z-index: 2;
+    top: 4px;
+    left: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 8% 1fr;
+    padding: 0 1.6rem;
+    text-align: left;
+
+    h1 {
+      padding: 1rem 0;
+      text-transform: uppercase;
     }
   }
 }

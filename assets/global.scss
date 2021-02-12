@@ -11,7 +11,7 @@ $breakpoints: (
 }
 
 //Global varables
-$space: .8rem;
+$space: 1.2rem;
 
 //Global body
 body {
@@ -24,37 +24,52 @@ body {
 
 //Global reusable styles
 .view__container {
-  min-height: calc(100vh - (2 * 2.5rem) - (2 * 0.8rem) - 10px - 24px);
+  min-height: calc(100vh - (2 * 3rem) - (2 * 0.8rem) - 10px - 24px);
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
 
+  @include screen-is(lg) {
+    min-height: calc(100vh - (2 * 3rem) - (2 * 0.8rem) - 20px - 60px);
+  }
+
   .events__header {
     margin-bottom: 10px;
     text-transform: uppercase;
+
+    @include screen-is(lg) {
+      margin-bottom: 20px;
+    }
   }
 }
 .global__button {
-  border: 2px #ff0000;
+  border: 2px orangered;
   border-style: solid;
-  padding: .4rem .5rem;
-  color: #ff0000;
+  padding: .5rem .7rem;
+  color: orangered;
   cursor: pointer;
   text-align: center;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 .global__button:hover {
   border-style: solid;
 }
+.global__event-picture {
+  width: 100%;
+  object-fit: cover;
+  height: 250px;
+}
 
 //Global text-tags
 small, h1, h2, h3 {
-  font-family: "source";
+  font-family: "nunito";
 }
 
 h1 {
   margin: 0;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 700;
 
   @include screen-is(lg) {
     font-size: 24px;
