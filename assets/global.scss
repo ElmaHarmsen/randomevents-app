@@ -1,7 +1,7 @@
 //Global breakpoints and formula
 $breakpoints: (
   "sm": 0, //Phone
-  "lg": 1280px, //Laptop
+  "lg": 1040px, //Laptop
 );
 
 @mixin screen-is($breakpoint) {
@@ -36,6 +36,7 @@ body {
   .events__header {
     margin-bottom: 10px;
     text-transform: uppercase;
+    text-align: center;
 
     @include screen-is(lg) {
       margin-bottom: 20px;
@@ -51,6 +52,10 @@ body {
   text-align: center;
   text-transform: uppercase;
   font-weight: 600;
+
+  @include screen-is(lg) {
+    padding: .9rem 1.1rem;
+  }
 }
 .global__button:hover {
   border-style: solid;
@@ -58,7 +63,16 @@ body {
 .global__event-picture {
   width: 100%;
   object-fit: cover;
-  height: 250px;
+  height: 200px;
+
+  @include screen-is(lg) {
+    height: 300px;
+  }
+}
+.global__loader {
+  img {
+    transform: scale(.7);
+  }
 }
 
 //Global text-tags
@@ -70,10 +84,6 @@ h1 {
   margin: 0;
   font-size: 24px;
   font-weight: 700;
-
-  @include screen-is(lg) {
-    font-size: 24px;
-  }
 }
 
 h2 {
@@ -99,4 +109,22 @@ i {
   font-style: italic;
   font-size: 14px;
   font-weight: 300;
+}
+
+@include screen-is(lg) {
+  h1 {
+    font-size: 28px;
+  }
+  h2 {
+    font-size: 22px;
+  }
+  h3 {
+    font-size: 18px;
+  }
+  small {
+    font-size: 14px;
+  }
+  i {
+    font-size: 18px;
+  }
 }

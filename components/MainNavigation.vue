@@ -77,8 +77,8 @@ export default Vue.extend({
     display: block;
     background-color: #000;
     width: 2rem;
-    height: 2px;
-    border-radius: 9px;
+    height: 3px;
+    border-radius: 10px;
     transition: all .2s ease-in-out;
   }
 
@@ -88,7 +88,7 @@ export default Vue.extend({
 
   &.open  {
     span:first-of-type {
-      transform: rotate(45deg);
+      transform: rotate(43deg);
       transform-origin: top left;
       background-color: #ff4500;
     }
@@ -96,7 +96,7 @@ export default Vue.extend({
       opacity: 0;
     }
     span:last-of-type {
-      transform: rotate(-45deg);
+      transform: rotate(-43deg);
       transform-origin: bottom left;
       background-color: #ff4500;
     }
@@ -173,6 +173,10 @@ export default Vue.extend({
     h1 {
       padding: 1rem 0;
       text-transform: uppercase;
+      font-size: 24px !important;
+    }
+    h1:active {
+      outline: none;
     }
   }
 }

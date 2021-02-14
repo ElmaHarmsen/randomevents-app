@@ -1,31 +1,36 @@
 <template>
   <div class="view__container">
-    <h1 class="events__header">Future Events</h1>
-    <div class="events__loop">
-      <div class="event__containter" v-for="event in getFutureEvents" :key="event._id">
-        <NuxtLink class="event__link" v-bind:to="`/events/${event._id}`">
-          <!-- <img class="event__picture" v-bind:src="`${baseURL}${event.Picture.url}`" /> -->
-          <img class="global__event-picture" src="~/assets/images/runy.jpg" alt="">
-          <div class="event__info">
-            <h2><i>{{ event.Location }}</i></h2>
-            <h2><i>{{ new Date(event.Date).toLocaleString("nl-NL") }}</i></h2>
-            <h1>{{ event.Title }}</h1>
-          </div>
-        </NuxtLink>
-      </div>
+    <div v-if="isLoading" class="global__loader">
+      <img src="~/assets/images/loader.svg" alt="">
     </div>
-    <h1 class="events__header header__past">Past Events</h1>
-    <div class="events__loop">
-      <div class="event__containter" v-for="event in futureEvents" :key="event._id">
-        <NuxtLink class="event__link" v-bind:to="`/events/${event._id}`">
-          <!-- <img class="event__picture" v-bind:src="`${baseURL}${event.Picture.url}`" /> -->
-          <img class="global__event-picture" src="~/assets/images/nyancat.jpg" alt="">
-          <div class="event__info">
-            <h2><i>{{ event.Location }}</i></h2>
-            <h2><i>{{ new Date(event.Date).toLocaleString("nl-NL") }}</i></h2>
-            <h1>{{ event.Title }}</h1>
-          </div>
-        </NuxtLink>
+    <div v-else class="events__wrapper">
+      <h1 class="events__header">Future Events</h1>
+      <div class="events__loop">
+        <div class="event__containter" v-for="event in getFutureEvents" :key="event._id">
+          <NuxtLink class="event__link" v-bind:to="`/events/${event._id}`">
+            <!-- <img class="event__picture" v-bind:src="`${baseURL}${event.Picture.url}`" /> -->
+            <img class="global__event-picture" src="~/assets/images/runy.jpg" alt="">
+            <div class="event__info">
+              <h2><i>{{ event.Location }}</i></h2>
+              <h2><i>{{ new Date(event.Date).toLocaleDateString("nl-NL") }}</i></h2>
+              <h1>{{ event.Title }}</h1>
+            </div>
+          </NuxtLink>
+        </div>
+      </div>
+      <h1 class="events__header header__past">Past Events</h1>
+      <div class="events__loop">
+        <div class="event__containter" v-for="event in getPastEvents" :key="event._id">
+          <NuxtLink class="event__link" v-bind:to="`/events/${event._id}`">
+            <!-- <img class="event__picture" v-bind:src="`${baseURL}${event.Picture.url}`" /> -->
+            <img class="global__event-picture" src="~/assets/images/nyancat.jpg" alt="">
+            <div class="event__info">
+              <h2><i>{{ event.Location }}</i></h2>
+              <h2><i>{{ new Date(event.Date).toLocaleDateString("nl-NL") }}</i></h2>
+              <h1>{{ event.Title }}</h1>
+            </div>
+          </NuxtLink>
+        </div>
       </div>
     </div>
   </div>
@@ -38,21 +43,34 @@ import { EventInterface } from "~/types.ts";
 export default Vue.extend({
   data: function() {
     return {
-      futureEvents: [] as EventInterface[]
+      isLoading: true,
+      allEvents: [] as EventInterface[]
     }
+  },
+  created: async function() {
+    await this.fetchData();
+    this.isLoading = false;
   },
   computed: {
     baseURL() {
       return process.env.NUXT_ENV_BASE_URL;
     },
     getFutureEvents(): EventInterface[] {
-      return this.futureEvents.filter(event => new Date(event.Date).getTime() > Date.now());
+      return this.allEvents.filter(event => new Date(event.Date).getTime() > Date.now());
+    },
+    getPastEvents(): EventInterface[] {
+      return this.allEvents.filter(event => new Date(event.Date).getTime() < Date.now());
     }
   },
-  mounted: async function () {
-    const rawFetch = await fetch('https://randomevents.herokuapp.com/events');
-    const jsonFetch = await rawFetch.json();
-    this.futureEvents = jsonFetch;
+  methods: {
+    async fetchData() {
+      const rawFetch = await fetch('https://randomevents.herokuapp.com/events');
+      const jsonFetch = await rawFetch.json();
+      this.allEvents = jsonFetch;
+    }
+  },
+  mounted: function () {
+    this.fetchData()
   }
 })
 </script>
@@ -61,46 +79,54 @@ export default Vue.extend({
 @import '@/assets/global.scss';
 
 .view__container {
-  .header__past {
-    margin-top: 2.5rem;
-  }
-  .events__loop {
+  .events__wrapper {
     width: 100%;
-
-    @include screen-is(lg) {
+    .header__past {
+      margin-top: 2.5rem;
+    }
+    .events__loop {
       width: 100%;
-      display: flex;
-      flex-flow: row wrap;
+
+      @include screen-is(lg) {
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
+      }
     }
-  }
-  .event__containter {
-    // background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,161,0,1) 15%, rgba(255,234,0,1) 30%, rgba(131,255,0,1) 45%, rgba(0,242,255,1) 60%, rgba(4,107,193,1) 80%, rgba(118,0,255,1) 96%);     
-    // border-radius: 9px;
-    background-color: #080808;
-    color: #fff;
-    // padding: 2px;
-    margin-bottom: 10px;
+    .event__containter {
+      background-color: #080808;
+      color: #fff;
+      margin-bottom: 10px;
+      border-radius: 5px;
 
-    @include screen-is(lg) {
-      flex: 0 1 25%;
-      margin-right: 20px;
-      margin-bottom: 20px;
-    }
+      @include screen-is(lg) {
+        flex: 0 1 25%;
+        margin-right: 20px;
+        margin-bottom: 20px;
+      }
 
-    .event__link {
-
-      .event__info {
-        padding: 1rem 1.4rem;
-        // background-color: #fff;
-        // border-bottom-right-radius: 8px;
-        // border-bottom-left-radius: 8px;
-        
-        h1 {
-          padding-top: 10px;
-          font-weight: 800;
-          color: #ff4500;
-          text-transform: capitalize;
+      .event__link {
+        img {
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+          transition: .25s ease;
         }
+
+        .event__info {
+          padding: 1rem 1.4rem;
+          
+          h1 {
+            padding-top: 10px;
+            font-weight: 800;
+            color: #ff4500;
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
+    .event__containter:hover {
+      img {
+        transform: scale(1.1);
       }
     }
   }
