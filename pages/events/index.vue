@@ -9,7 +9,9 @@
         <div class="event__containter" v-for="event in getFutureEvents" :key="event._id">
           <NuxtLink class="event__link" v-bind:to="`/events/${event._id}`">
             <!-- <img class="event__picture" v-bind:src="`${baseURL}${event.Picture.url}`" /> -->
-            <img class="global__event-picture" src="~/assets/images/runy.jpg" alt="">
+            <div class="event__picture-wrapper">
+              <img class="global__event-picture" src="~/assets/images/runy.jpg" alt="">
+            </div>
             <div class="event__info">
               <h2><i>{{ event.Location }}</i></h2>
               <h2><i>{{ new Date(event.Date).toLocaleDateString("nl-NL") }}</i></h2>
@@ -23,7 +25,9 @@
         <div class="event__containter" v-for="event in getPastEvents" :key="event._id">
           <NuxtLink class="event__link" v-bind:to="`/events/${event._id}`">
             <!-- <img class="event__picture" v-bind:src="`${baseURL}${event.Picture.url}`" /> -->
-            <img class="global__event-picture" src="~/assets/images/nyancat.jpg" alt="">
+            <div class="event__picture-wrapper">
+              <img class="global__event-picture" src="~/assets/images/nyancat.jpg" alt="">
+            </div>
             <div class="event__info">
               <h2><i>{{ event.Location }}</i></h2>
               <h2><i>{{ new Date(event.Date).toLocaleDateString("nl-NL") }}</i></h2>
@@ -106,10 +110,22 @@ export default Vue.extend({
       }
 
       .event__link {
-        img {
+        .event__picture-wrapper {
+          width: 100%;
+          height: 250px;
+          overflow: hidden;            
           border-top-left-radius: 5px;
           border-top-right-radius: 5px;
-          transition: .25s ease;
+
+          @include screen-is(lg) {
+            height: 300px;
+          }
+          
+          img {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            transition: .25s ease;
+          }
         }
 
         .event__info {

@@ -141,7 +141,7 @@ export default Vue.extend({
       margin-top: 10px;
 
       input {
-        border: 2px solid #fff;
+        border: 3px solid #fff;
         background-color: #080808;
         padding: .5rem .7rem;
         font-family: "source";
@@ -149,6 +149,9 @@ export default Vue.extend({
       }
       input::placeholder {
         color: #e0e0e0;
+      }
+      div {
+        background-color: #000;
       }
     }
   }
