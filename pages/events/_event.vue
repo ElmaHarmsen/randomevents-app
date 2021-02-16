@@ -11,13 +11,15 @@
       <div class="_event__info">
         <h1><i>Location</i> <br>{{ singleEvent.Location }}</h1>
         <h1><i>Date & Time</i> <br>{{ new Date(singleEvent.Date).toLocaleString("nl-NL") }}</h1>
-        <h1><i>Contribution</i> <br>€{{ singleEvent.Contribution }}</h1>
+        <h1><i>Contribution</i> <br>{{ '€' + singleEvent.Contribution }}</h1>
       </div>
       <div v-if="!pastEvent" class="_event__join-btn global__button">
         <h2>Join Event</h2>
       </div>
       <div class="_event__description">
         <h1><i>Description</i> <br>{{ singleEvent.Description }}</h1>
+        <h1><i>Additional Info</i></h1>
+        <span v-for="category in singleEvent.event_categories" v-bind:key="category.id">{{ category.Category + ', '}}</span>
       </div>
     </div>
   </div>
@@ -39,7 +41,7 @@ export default Vue.extend({
     this.isLoading = false;
   },
   computed: {
-    pastEvent(): any {
+    pastEvent(): boolean {
       return new Date(this.singleEvent.Date).getTime() < Date.now();
     }
   },
@@ -49,6 +51,7 @@ export default Vue.extend({
       //event in ${this.$route.params.event} = the paramater which is also defined as _event by dynamic routing in Nuxt
       const jsonFetch = await rawFetch.json();
       this.singleEvent = jsonFetch;
+      console.log(this.singleEvent)
     }
   },
   mounted: function () {
@@ -101,7 +104,20 @@ export default Vue.extend({
     }
 
     ._event__description {
-      margin: 21px 0;
+      margin: 2.5rem 0;
+
+      h1:nth-of-type(2) {
+        margin-top: 21px;
+      }
+
+      span {
+        font-size: 24px;
+        font-weight: 700;
+
+        @include screen-is(lg) {
+          font-size: 28px;
+        }
+      }
     }
 
     @include screen-is(lg) {

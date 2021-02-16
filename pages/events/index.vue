@@ -17,6 +17,9 @@
               <h2><i>{{ new Date(event.Date).toLocaleDateString("nl-NL") }}</i></h2>
               <h1>{{ event.Title }}</h1>
             </div>
+            <!-- <div class="event__category">
+              Smth
+            </div> -->
           </NuxtLink>
         </div>
       </div>
@@ -137,6 +140,13 @@ export default Vue.extend({
             color: #ff4500;
             text-transform: capitalize;
           }
+        }
+
+        .event__category {
+          position: relative;
+          z-index: 2;
+          right: 0;
+          bottom: 0;
         }
       }
     }
