@@ -5,39 +5,13 @@
     </div>
     <div v-else class="events__wrapper">
       <h1 class="events__header">Future Events</h1>
+      <EventsFilter v-bind:eventsLength="getFutureEvents.length"/>
       <div class="events__loop">
-        <div class="event__containter" v-for="event in getFutureEvents" :key="event._id">
-          <NuxtLink class="event__link" v-bind:to="`/events/${event._id}`">
-            <!-- <img class="event__picture" v-bind:src="`${baseURL}${event.Picture.url}`" /> -->
-            <div class="event__picture-wrapper">
-              <img class="global__event-picture" src="~/assets/images/runy.jpg" alt="">
-            </div>
-            <div class="event__info">
-              <h2><i>{{ event.Location }}</i></h2>
-              <h2><i>{{ new Date(event.Date).toLocaleDateString("nl-NL") }}</i></h2>
-              <h1>{{ event.Title }}</h1>
-            </div>
-            <!-- <div class="event__category">
-              Smth
-            </div> -->
-          </NuxtLink>
-        </div>
+        <EventCard v-for="event in getFutureEvents" :key="event._id" v-bind:eventData="event" />
       </div>
       <h1 class="events__header header__past">Past Events</h1>
       <div class="events__loop">
-        <div class="event__containter" v-for="event in getPastEvents" :key="event._id">
-          <NuxtLink class="event__link" v-bind:to="`/events/${event._id}`">
-            <!-- <img class="event__picture" v-bind:src="`${baseURL}${event.Picture.url}`" /> -->
-            <div class="event__picture-wrapper">
-              <img class="global__event-picture" src="~/assets/images/nyancat.jpg" alt="">
-            </div>
-            <div class="event__info">
-              <h2><i>{{ event.Location }}</i></h2>
-              <h2><i>{{ new Date(event.Date).toLocaleDateString("nl-NL") }}</i></h2>
-              <h1>{{ event.Title }}</h1>
-            </div>
-          </NuxtLink>
-        </div>
+        <EventCard v-for="event in getPastEvents" :key="event._id" v-bind:eventData="event" />
       </div>
     </div>
   </div>
@@ -46,13 +20,32 @@
 <script lang="ts">
 import Vue from 'vue';
 import { EventInterface } from "~/types.ts";
+import EventsFilter from "~/components/EventsFilter.vue";
+import EventCard from '~/components/EventCard.vue';
 
 export default Vue.extend({
+  transition: "page",
+  head() {
+    return {
+      title: 'Events page',
+      meta: [
+        {
+          hid: 'Events. Future events. Past events.',
+          name: 'Random Events.',
+          content: 'Index of events. Index of single event.'
+        }
+      ]
+    }
+  },
   data: function() {
     return {
       isLoading: true,
       allEvents: [] as EventInterface[]
     }
+  },
+  components: {
+    EventsFilter,
+    EventCard
   },
   created: async function() {
     await this.fetchData();
@@ -88,6 +81,7 @@ export default Vue.extend({
 .view__container {
   .events__wrapper {
     width: 100%;
+
     .header__past {
       margin-top: 2.5rem;
     }
@@ -115,7 +109,7 @@ export default Vue.extend({
       .event__link {
         .event__picture-wrapper {
           width: 100%;
-          height: 250px;
+          height: 225px;
           overflow: hidden;            
           border-top-left-radius: 5px;
           border-top-right-radius: 5px;
@@ -132,13 +126,17 @@ export default Vue.extend({
         }
 
         .event__info {
-          padding: 1rem 1.4rem;
+          padding: .6rem 1rem;
           
           h1 {
             padding-top: 10px;
             font-weight: 800;
             color: #ff4500;
             text-transform: capitalize;
+          }
+
+          @include screen-is(lg) {
+            padding: 1rem 1.4rem;
           }
         }
 

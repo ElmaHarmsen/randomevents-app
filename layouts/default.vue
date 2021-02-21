@@ -32,7 +32,7 @@ div {
     margin-bottom: 2.5rem;
 
     @include screen-is(lg) {
-      height: 60px;
+      height: 59px;
       margin-bottom: 3rem;
     }
 

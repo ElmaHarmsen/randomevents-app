@@ -23,6 +23,9 @@ body {
 }
 
 //Global reusable styles
+.page-enter-active, .page-leave-active { transition: opacity .25s; }
+.page-enter, .page-leave-active { opacity: 0; }
+
 .view__container {
   min-height: calc(100vh - (2 * 3rem) - (2 * 0.8rem) - 10px - 24px);
   display: flex;
@@ -30,7 +33,7 @@ body {
   align-items: center;
 
   @include screen-is(lg) {
-    min-height: calc(100vh - (2 * 3rem) - (2 * 0.8rem) - 20px - 60px);
+    min-height: calc(100vh - (2 * 3rem) - (2 * 0.8rem) - 20px - 59px);
   }
 
   .events__header {

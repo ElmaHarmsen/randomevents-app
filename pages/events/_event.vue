@@ -6,7 +6,8 @@
     <div v-else class="_event__wrapper">
       <h1 class="events__header">{{ singleEvent.Title }}</h1>
       <div class="_event__picture-wrapper">
-        <img class="global__event-picture _event__picture" src="~/assets/images/nyancat.jpg" alt="">
+        <img v-if="getPicture !== undefined" class="global__event-picture _event__picture" v-bind:src="getPicture" alt="">
+        <img v-else class="global__event-picture _event__picture" src="~/assets/images/logo-tab.png" alt="">
       </div>
       <div class="_event__info">
         <h1><i>Location</i> <br>{{ singleEvent.Location }}</h1>
@@ -19,7 +20,10 @@
       <div class="_event__description">
         <h1><i>Description</i> <br>{{ singleEvent.Description }}</h1>
         <h1><i>Additional Info</i></h1>
-        <span v-for="category in singleEvent.event_categories" v-bind:key="category.id">{{ category.Category + ', '}}</span>
+        <div v-if="singleEvent.event_categories.length != 0">
+          <span v-for="category in singleEvent.event_categories" v-bind:key="category.id">{{ category.Category + '. '}}</span>
+        </div>
+        <h1 v-else>Nothing to add.</h1>
       </div>
     </div>
   </div>
@@ -30,6 +34,19 @@ import Vue from 'vue';
 import { EventInterface } from "~/types.ts";
 
 export default Vue.extend({
+  transition: "page",
+  head() {
+    return {
+      title: 'Single event page',
+      meta: [
+        {
+          hid: 'Event.',
+          name: 'Random Event.',
+          content: 'Index of single event.'
+        }
+      ]
+    }
+  },
   data: function() {
     return {
       isLoading: true,
@@ -43,6 +60,10 @@ export default Vue.extend({
   computed: {
     pastEvent(): boolean {
       return new Date(this.singleEvent.Date).getTime() < Date.now();
+    },
+    getPicture() {
+      const event: EventInterface = this.singleEvent;
+      return event.Picture?.formats.small.url;
     }
   },
   methods: {

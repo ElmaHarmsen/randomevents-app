@@ -56,7 +56,7 @@ export default Vue.extend({
   top: 0;
   left: 0;
   width: 100%;
-  height: 4px;
+  height: 3px;
   background: rgb(255,69,0);
   background: linear-gradient(90deg, rgba(255,69,0,1) 0%, rgba(255,158,0,1) 100%); 
 }
@@ -67,7 +67,7 @@ export default Vue.extend({
   flex-flow: column nowrap;
   justify-content: space-between;
   position: fixed;
-  z-index: 2;
+  z-index: 3;
 
   @include screen-is(lg) {
     display: none;
@@ -113,7 +113,7 @@ export default Vue.extend({
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 2;
 
   @include screen-is(lg) {
     display: none;
@@ -165,7 +165,7 @@ export default Vue.extend({
     color: #fff;
     position: fixed;
     z-index: 2;
-    top: 4px;
+    top: 3px;
     left: 0;
     width: 100%;
     display: grid;
